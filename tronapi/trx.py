@@ -570,6 +570,8 @@ class Trx(Module):
             raise TronError('Transaction is already signed')
 
         try:
+            if transaction.get('transaction',''):
+                transaction = transaction['transaction']
             if not multisig:
                 address = self.tron.address.from_private_key(self.tron.private_key).hex.lower()
                 owner_address = transaction['raw_data']['contract'][0]['parameter']['value']['owner_address']
